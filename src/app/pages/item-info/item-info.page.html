@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Item ID {{id}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onEditModeSwitch()">
+        <ion-icon [name]="!isEditing ? 'create-outline' : 'checkmark-outline'"></ion-icon>
+        {{!isEditing ? 'Edit' : 'Save'}}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>Item ID: {{id}}</h1>
+  <section>
+    <h2>Attributes</h2>
+    <div *ngIf="isEditing; else viewAttributes">
+      <div *ngFor="let items of [].constructor(attrs.length); index as i">
+        <ion-item lines="full">
+          <ion-input slot="start" [(ngModel)]="attrs[i].key"></ion-input>
+          <ion-button color="danger" slot="end" (click)="deleteAttr(i)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-textarea [(ngModel)]="attrs[i].value" [autoGrow]="true" rows="1">
+          </ion-textarea>
+        </ion-item>
+      </div>
+      <ion-button (click)="addAttr()">Add Attribute</ion-button>
+    </div>
+    <ng-template #viewAttributes>
+      <p *ngFor="let attr of attrs; trackBy:trackByData">
+        {{attr.key}}: {{attr.value}}
+      </p>
+    </ng-template>
+  </section>
+  <section>
+    <h2>Tags</h2>
+    <div *ngIf="isEditing; else viewTags">
+      <div *ngFor="let items of [].constructor(tags.length); index as i">
+        <ion-item>
+          <ion-input [(ngModel)]="tags[i]"></ion-input>
+          <ion-button color="danger" slot="end" (click)="deleteTag(i)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+      <ion-button (click)="addTag()">Add Tag</ion-button>
+    </div>
+    <ng-template #viewTags>
+      <ul>
+        <li *ngFor="let tag of tags">{{tag}}</li>
+      </ul>
+    </ng-template>
+  </section>
+  <section *ngIf="!isEditing && qrcode && barcode">
+    <h2>QR Code & Barcode</h2>
+    <div class="center_container">
+      <img [src]="'data:image/svg+xml;base64,' + qrcode"/>
+    </div>
+    <div class="center_container">
+      <img [src]="'data:image/svg+xml;base64,' + barcode"/>
+    </div>
+    <!-- <div class="center_container">
+      <ion-button (click)="printQRCode()">
+        Print QR Code
+      </ion-button>
+      <ion-button (click)="printBarcode()">
+        Print Barcode
+      </ion-button>
+    </div> -->
+  </section>
+</ion-content>

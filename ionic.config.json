@@ -1,0 +1,10 @@
+{
+  "name": "scan-stock-client",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {
+      "enabled": false
+    }
+  },
+  "type": "angular"
+}

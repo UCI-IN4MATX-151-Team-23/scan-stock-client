@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onItemRefresh()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Items</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onAddItem()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="center_container">
+    <ion-list>
+      <ion-item *ngFor="let item of (items$ | async); trackBy:trackByItem">
+        <div class="center_container">
+          <ion-card [routerLink]="['/tabs', 'item', item.id]">
+            <ion-card-header>
+              <ion-card-subtitle>Item ID: {{item.id}} </ion-card-subtitle>
+              <ion-card-title>{{item.attrs?.name ? item.attrs.name : 'No Name'}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p *ngIf="item.attrs?.description">
+                {{item.attrs.description}}
+              </p>
+              <p *ngIf="item.tags.length !== 0">
+                Tags: {{item.tags.join(', ')}}
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

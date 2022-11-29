@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [hidden]="isLoggedIn || signUp" class="flex-container">
+    <h1>Log in</h1>
+    <div class="break"></div>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input [(ngModel)]="logInUsername"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input [(ngModel)]="logInPassword" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="break"></div>
+    <ion-button (click)="onLogIn()">Log in</ion-button>
+    <div class="break"></div>
+    <ion-button color="light" (click)="onChangeToSignUp()">Sign up</ion-button>
+    <div class="break"></div>
+    <div>
+      <ion-label color="danger">{{error}}</ion-label>
+    </div>
+  </div>
+  <div [hidden]="!isLoggedIn || signUp" class="flex-container">
+    <h1>User: {{username}}</h1>
+    <div class="break"></div>
+    <ion-button color="danger" (click)="onLogOut()">Log out</ion-button>
+    <div class="break"></div>
+    <div>
+      <ion-label color="danger">{{error}}</ion-label>
+    </div>
+  </div>
+  <div [hidden]="!signUp" class="flex-container">
+    <h1>Sign Up</h1>
+    <div class="break"></div>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="signUpEmail" type="email" ngModel email></ion-input>
+        <ion-note slot="error">Invalid email</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input [(ngModel)]="signUpUsername"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input [(ngModel)]="signUpPassword" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="break"></div>
+    <ion-button (click)="onSignUp()">Sign Up</ion-button>
+    <div class="break"></div>
+    <ion-button color="light" (click)="onChangeToLogIn()">Log In</ion-button>
+    <div class="break"></div>
+    <div>
+      <ion-label color="danger">{{error}}</ion-label>
+    </div>
+  </div>
+</ion-content>
